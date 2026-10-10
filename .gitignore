@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Spark
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Dados brutos e artefatos gerados
+/data/*.csv
+/data/*.zip
+/data/raw/**
+!/data/raw/.gitkeep
+/data/parquet/**
+!/data/parquet/.gitkeep
+/data/manifests/*.json
+/data/.tmp/
+
+# Logs e arquivos locais
+*.log
+.env
+.DS_Store
+

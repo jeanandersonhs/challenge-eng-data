@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+    image: eng-data-challenge:local
+    working_dir: /app
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    environment:
+      HOME: /tmp
+      SPARK_LOCAL_DIRS: /tmp/spark
+      PYSPARK_SUBMIT_ARGS: >-
+        --driver-memory 3g
+        --conf spark.sql.shuffle.partitions=48
+        pyspark-shell
+    volumes:
+      - .:/app
+    command: ["python", "-m", "eng_data_challenge.ingestion"]
+
