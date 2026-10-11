@@ -16,7 +16,7 @@ services:
     environment: *spark-env
     volumes:
       - .:/app
-    command: ["python", "-m", "eng_data_challenge.ingestion"]
+    command: ["python", "-m", "eng_data_challenge.main"]
 
   notebook:
     image: eng-data-challenge:local
@@ -34,5 +34,7 @@ services:
       - --ip=0.0.0.0
       - --port=8888
       - --no-browser
+      - --ServerApp.token=
+      - --ServerApp.password=
       - --notebook-dir=/app/notebooks
     profiles: ["notebook"]
