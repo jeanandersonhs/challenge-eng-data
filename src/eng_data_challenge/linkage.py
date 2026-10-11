@@ -52,7 +52,6 @@ def escolher_candidatos(busca: pd.DataFrame, nomes: pd.DataFrame) -> pd.DataFram
     for q in busca.itertuples():
         tentativas = [
             ("logradouro", "nome_chave", q.nome_chave, LIMIAR_LOGRADOURO),
-            ("logradouro", "nome_chave", q.nome_alternativo_chave, LIMIAR_LOGRADOURO),
             ("localidade", "localidade_norm", q.bairro_norm, LIMIAR_LOCALIDADE),
             ("localidade", "localidade_norm", q.nome_chave, LIMIAR_LOCALIDADE),
         ]
