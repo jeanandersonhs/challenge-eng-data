@@ -23,6 +23,8 @@ derby.log
 !/data/raw/.gitkeep
 /data/parquet/**
 !/data/parquet/.gitkeep
+/data/silver/
+/data/gold/
 /data/manifests/*.json
 /data/.tmp/
 
