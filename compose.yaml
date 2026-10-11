@@ -1,3 +1,11 @@
+x-spark-env: &spark-env
+  HOME: /tmp
+  SPARK_LOCAL_DIRS: /tmp/spark
+  PYSPARK_SUBMIT_ARGS: >-
+    --driver-memory 3g
+    --conf spark.sql.shuffle.partitions=48
+    pyspark-shell
+
 services:
   app:
     build:
@@ -5,14 +13,26 @@ services:
     image: eng-data-challenge:local
     working_dir: /app
     user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
-    environment:
-      HOME: /tmp
-      SPARK_LOCAL_DIRS: /tmp/spark
-      PYSPARK_SUBMIT_ARGS: >-
-        --driver-memory 3g
-        --conf spark.sql.shuffle.partitions=48
-        pyspark-shell
+    environment: *spark-env
     volumes:
       - .:/app
     command: ["python", "-m", "eng_data_challenge.ingestion"]
 
+  notebook:
+    image: eng-data-challenge:local
+    working_dir: /app
+    user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+    environment: *spark-env
+    volumes:
+      - .:/app
+    ports:
+      - "8888:8888"   # JupyterLab
+      - "4040:4040"   # Spark UI
+    command:
+      - jupyter
+      - lab
+      - --ip=0.0.0.0
+      - --port=8888
+      - --no-browser
+      - --notebook-dir=/app/notebooks
+    profiles: ["notebook"]
